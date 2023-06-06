@@ -188,7 +188,39 @@ UPDATE Proveedor SET CUIT='30-63844281-3' WHERE IdProveedor=18;
 
 SELECT * from DB_BIG_BREAD.Proveedor;
 
+/* falta crear la TABLA "PRODUCCION DIARIA", que es obligatoria.alter*/
 
+USE DB_BIG_BREAD;
+DELETE from DB_BIG_BREAD.cliente;
 
+SHOW VARIABLES LIKE "sql_safe_updates";
+SET SQL_SAFE_UPDATES = 0;
+SHOW VARIABLES LIKE "sql_safe_updates";
 
+DELETE from DB_BIG_BREAD.cliente;
+DELETE from DB_BIG_BREAD.Compras;
 
+ALTER TABLE `DB_BIG_BREAD`.`Productos`
+ADD COLUMN `Stock` INT(11) NOT NULL,
+ADD COLUMN `Precio`INT(11) NOT NULL,
+ADD COLUMN `Unid_Medida` VARCHAR(15) NOT NULL;
+
+ALTER TABLE `DB_BIG_BREAD`.`Recetas` 
+DROP COLUMN `IdInsumo`,
+DROP COLUMN `Cant_Insumo`;
+
+CREATE TABLE Detalle_Recetas(
+	IdDet_Receta INT (11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	IdReceta INT (11) NOT NULL,
+    IdInsumo INT (11) NOT NULL,
+    Cant_Insumo INT (11) NOT NULL,
+	Unid_Medida VARCHAR(25) NOT NULL);
+    
+CREATE TABLE Produccion_Diaria(
+	IdProduccion INT (11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	IdRProducto INT (11) NOT NULL,
+    Cantidad INT (11) NOT NULL,
+	Fecha DATE NOT NULL);
+    
+ALTER TABLE `DB_BIG_BREAD`.`Produccion_Diaria`
+CHANGE COLUMN `IdRProducto` `IdProducto` INT(11) NOT NULL;
