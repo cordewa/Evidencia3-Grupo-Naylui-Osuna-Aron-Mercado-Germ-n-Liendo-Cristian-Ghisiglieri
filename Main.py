@@ -1,4 +1,5 @@
 import Conexion as conexionDB
+from Productos import Productos
 
 print("*** BIENVENIDO A LA CALCULADORA BIG BREAD S.A.***")
 print("¿Quiere ingresar un producto?")
